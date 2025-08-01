@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>My Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" th:href="@{/css/custom.css}">
+</head>
+<body class="text-gray-300">
+    <div th:replace="~{common/header :: header}"></div>
+
+    <main class="container mx-auto px-4 py-8">
+        <h1 class="text-4xl font-bold hero-text-gradient mb-8">My Profile</h1>
+        <div class="form-glass max-w-2xl mx-auto p-8">
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-400">Username</label>
+                    <p class="text-lg text-white" th:text="${user.username}">username</p>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-400">Email</label>
+                    <p class="text-lg text-white" th:text="${user.email}">email@example.com</p>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-400">Shipping Address</label>
+                    <p class="text-lg text-white" th:text="${user.address}">123 Asgard Lane</p>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-400">Role</label>
+                    <p class="text-lg text-white" th:text="${user.role}">ROLE_USER</p>
+                </div>
+            </div>
+            <div class="mt-8 border-t border-slate-700 pt-6">
+                <button class="px-6 py-2 rounded-lg bg-slate-600 hover:bg-slate-700">Edit Profile</button>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

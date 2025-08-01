@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+
+    <header th:fragment="header" class="bg-white shadow-md">
+		<link rel="stylesheet" th:href="@{/css/custom.css}">
+        <nav class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a th:href="@{/}" class="text-2xl font-bold text-indigo-600">E-Commerce</a>
+            
+            <div>
+                <!-- Unauthenticated Users -->
+                <div sec:authorize="!isAuthenticated()">
+                    <a th:href="@{/login}" class="text-gray-600 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Login</a>
+                    <a th:href="@{/register}" class="text-white bg-indigo-600 hover:bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium">Register</a>
+                </div>
+
+                <!-- Authenticated Users -->
+                <div sec:authorize="isAuthenticated()" class="flex items-center space-x-4">
+                    <span class="text-gray-800">Welcome, <span sec:authentication="name" class="font-semibold">User</span></span>
+                    
+                    <!-- Admin Links -->
+                    <a th:href="@{/admin/Dashboard}" sec:authorize="hasRole('ROLE_ADMIN')" class="text-gray-600 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Admin Dashboard</a>
+                    
+                    <!-- Logout Form -->
+                    <form th:action="@{/logout}" method="post" class="inline">
+                         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                        <button type="submit" class="text-gray-600 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Logout</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Product</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" th:href="@{/css/custom.css}">
+</head>
+<body class="text-gray-300">
+    <div th:replace="~{common/adminHeader :: header}"></div>
+    <main class="container mx-auto px-4 py-8">
+        <h1 class="text-4xl font-bold hero-text-gradient mb-8">Add New Product</h1>
+        <div class="form-glass max-w-2xl mx-auto p-8">
+			<form th:action="@{'/admin/products/update/' + ${productDto.id}}" th:object="${productDto}" method="post" class="space-y-6">
+			   
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-400">Product Name</label>
+                    <input type="text" th:field="*{name}" id="name" required class="form-input">
+                </div>
+
+                <div>
+                    <label for="categoryName" class="block text-sm font-medium text-gray-400">Category</label>
+                    <select th:field="*{categoryName}" id="categoryName" required class="form-input">
+                        <option value="">Select Category</option>
+                        <option th:each="cat : ${categories}" th:value="${cat.name}" th:text="${cat.name}"></option>
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="price" class="block text-sm font-medium text-gray-400">Price ($)</label>
+                        <input type="number" th:field="*{price}" id="price" required class="form-input">
+                    </div>
+                    <div>
+                        <label for="quantity" class="block text-sm font-medium text-gray-400">Quantity</label>
+                        <input type="number" th:field="*{quantity}" id="quantity" required class="form-input">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="image" class="block text-sm font-medium text-gray-400">Image URL</label>
+                    <input type="text" th:field="*{image}" id="image" required class="form-input" placeholder="/images/your-image.jpg">
+                </div>
+
+                <div>
+                    <label for="description" class="block text-sm font-medium text-gray-400">Description</label>
+                    <textarea th:field="*{description}" id="description" rows="4" required class="form-input"></textarea>
+                </div>
+
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                <div class="flex justify-end space-x-4">
+                    <a th:href="@{/admin/products}" class="px-6 py-2 rounded-lg bg-slate-600 hover:bg-slate-700">Cancel</a>
+                    <button type="submit" class="px-6 py-2 rounded-lg bg-cyan-500 hover:bg-cyan-600">Add Product</button>
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

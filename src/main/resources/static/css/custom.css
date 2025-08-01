@@ -1,0 +1,97 @@
+/* --- Root Variables for a Futuristic Theme --- */
+:root {
+    --glow-color: rgb(0, 199, 255);
+    --background-blur: 12px;
+    --border-radius-main: 1.5rem; /* 24px */
+    --transition-speed: 300ms;
+}
+
+/* --- Animated Gradient Background --- */
+@keyframes animated-gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+body {
+    background: linear-gradient(-45deg, #0f172a, #1e293b, #334155, #0f172a);
+    background-size: 400% 400%;
+    animation: animated-gradient 15s ease infinite;
+    color: #e2e8f0;
+}
+
+/* --- Glassmorphism Elements --- */
+.header-glass, .product-card-glass, .gateway-card, .form-glass {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(var(--background-blur));
+    -webkit-backdrop-filter: blur(var(--background-blur));
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--border-radius-main);
+}
+
+/* --- Hero Section & Gradients --- */
+.hero-text-gradient {
+    background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* --- Pulsating Button Glow --- */
+@keyframes pulse {
+    0%, 100% { box-shadow: 0 0 20px var(--glow-color), 0 0 30px var(--glow-color); }
+    50% { box-shadow: 0 0 30px var(--glow-color), 0 0 45px var(--glow-color); }
+}
+.hero-button-glow { animation: pulse 2s infinite; }
+
+/* --- Advanced Card Styling --- */
+.product-card-glass, .gateway-card {
+    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    overflow: hidden;
+    position: relative;
+}
+.product-card-glass:hover, .gateway-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* --- Glowing Border Effect --- */
+.product-card-glass::before, .gateway-card::before, .form-glass::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: var(--border-radius-main);
+    border: 2px solid transparent;
+    background: linear-gradient(120deg, transparent, var(--glow-color), transparent) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity var(--transition-speed) ease;
+}
+.product-card-glass:hover::before, .gateway-card:hover::before, .form-glass:hover::before {
+    opacity: 1;
+}
+
+/* --- Form Styling --- */
+.form-glass {
+    padding: 2.5rem;
+    transition: box-shadow var(--transition-speed) ease;
+}
+.form-input {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0.5rem;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    color: white;
+    transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+.form-input:focus {
+    outline: none;
+    border-color: var(--glow-color);
+    box-shadow: 0 0 10px var(--glow-color);
+}
+
+/* --- Responsive Typography --- */
+h1 { font-size: clamp(2.5rem, 5vw, 4rem); }

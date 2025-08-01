@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - The Asgardian Armory</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" th:href="@{/css/custom.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="text-gray-300">
+
+    <div th:replace="~{common/header :: header}"></div>
+
+    <main>
+		<section class="container mx-auto px-4">
+		    <div class="flex justify-center flex-wrap gap-4 mb-12">
+		        <a th:href="@{/home}" class="px-4 py-2 rounded-lg bg-slate-700 hover:bg-slate-600 text-white">All Products</a>
+		        <a th:each="cat : ${categories}" th:href="@{'/products/category/' + ${cat.id}}"
+		           th:text="${cat.name}"
+		           class="px-4 py-2 rounded-lg bg-slate-700 hover:bg-slate-600 text-white">
+		        </a>
+		    </div>
+		</section>
+
+		<h2 class="text-3xl font-bold text-center mb-12 text-white" 
+		    th:text="${category != null ? category.name : 'Our Legendary Collection'}">
+		</h2>
+    </main>
+    
+    <footer class="bg-transparent mt-12">
+        <div class="container mx-auto px-4 py-6 text-center text-gray-500">
+            &copy; 2025 The Asgardian Armory. All Rights Reserved. Forged by Thor & Stormbreaker.
+        </div>
+    </footer>
+
+</body>
+</html>

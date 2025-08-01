@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Customers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" th:href="@{/css/custom.css}">
+</head>
+<body class="text-gray-300">
+
+    <div th:replace="~{common/adminHeader :: header}"></div>
+
+    <main class="container mx-auto px-4 py-8">
+        <h1 class="text-4xl font-bold hero-text-gradient mb-8">Registered Customers</h1>
+
+        <div class="form-glass p-6">
+            <table class="w-full text-left">
+                <thead>
+                    <tr class="border-b border-slate-700">
+                        <th class="p-4">User ID</th>
+                        <th class="p-4">Username</th>
+                        <th class="p-4">Email</th>
+                        <th class="p-4">Address</th>
+                        <th class="p-4">Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="customer : ${customers}" class="border-b border-slate-800 hover:bg-slate-800/50">
+                        <td class="p-4" th:text="${customer.id}">101</td>
+                        <td class="p-4 font-semibold text-white" th:text="${customer.username}">thor.odinson</td>
+                        <td class="p-4" th:text="${customer.email}">thor@asgard.com</td>
+                        <td class="p-4" th:text="${customer.address}">Bifrost Bridge, Asgard</td>
+                        <td class="p-4">
+                            <span th:text="${customer.role}"
+                                  th:classappend="${customer.role == 'ROLE_ADMIN'} ? 'bg-yellow-500/20 text-yellow-300' : 'bg-blue-500/20 text-blue-300'"
+                                  class="px-2 py-1 text-xs font-semibold rounded-full">
+                                ROLE_USER
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+</body>
+</html>

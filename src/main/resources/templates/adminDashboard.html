@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" th:href="@{/css/custom.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="text-gray-300">
+
+    <div th:replace="~{common/adminHeader :: header}"></div>
+
+    <main class="container mx-auto px-4 py-8">
+        <h1 class="text-4xl font-bold mb-2 hero-text-gradient">Admin Command Center</h1>
+        <p class="text-lg text-gray-400 mb-8">Oversee the realm, <span class="font-semibold" sec:authentication="name">All-Father</span>!</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <div class="gateway-card p-6">
+                <h3 class="font-semibold text-gray-400 text-sm uppercase">Total Products</h3>
+                <p class="text-4xl font-bold text-white mt-2" th:text="${productCount ?: '0'}">0</p>
+            </div>
+            <div class="gateway-card p-6">
+                <h3 class="font-semibold text-gray-400 text-sm uppercase">Total Categories</h3>
+                <p class="text-4xl font-bold text-white mt-2" th:text="${categoryCount ?: '0'}">0</p>
+            </div>
+            <div class="gateway-card p-6">
+                <h3 class="font-semibold text-gray-400 text-sm uppercase">Registered Customers</h3>
+                <p class="text-4xl font-bold text-white mt-2" th:text="${customerCount ?: '0'}">0</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <a th:href="@{/admin/products}" class="gateway-card p-6 block">
+                <h2 class="text-2xl font-semibold text-white">Manage Products</h2>
+                <p class="mt-2 text-gray-400">View, add, update, or delete products.</p>
+            </a>
+            
+            <a th:href="@{/admin/categories}" class="gateway-card p-6 block">
+                <h2 class="text-2xl font-semibold text-white">Manage Categories</h2>
+                <p class="mt-2 text-gray-400">Organize your products.</p>
+            </a>
+            
+            <a th:href="@{/admin/customers}" class="gateway-card p-6 block">
+                <h2 class="text-2xl font-semibold text-white">View Customers</h2>
+                <p class="mt-2 text-gray-400">See a list of all registered users.</p>
+            </a>
+        </div>
+    </main>
+</body>
+</html>

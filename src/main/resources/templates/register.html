@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" th:href="@{/css/custom.css}">
+</head>
+<body class="text-gray-300">
+
+    <div class="form-bg flex flex-col items-center justify-center p-4 min-h-screen">
+        <div class="form-glass w-full max-w-md">
+            <h1 class="text-3xl font-bold text-center mb-6 text-white">Create an Account</h1>
+            
+            <div th:if="${error}" class="bg-red-500/30 border border-red-700 text-white px-4 py-3 rounded-lg relative mb-4" role="alert">
+                <span class="block sm:inline" th:text="${error}"></span>
+            </div>
+
+            <form th:action="@{/newuserregister}" th:object="${user}" method="post" class="space-y-4">
+                <div>
+                    <label for="username" class="block text-sm font-medium text-gray-400">Username</label>
+                    <input type="text" th:field="*{username}" id="username" required class="form-input">
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-400">Email</label>
+                    <input type="email" th:field="*{email}" id="email" required class="form-input">
+                </div>
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-400">Password</label>
+                    <input type="password" th:field="*{password}" id="password" required class="form-input">
+                </div>
+                 <div>
+                    <label for="address" class="block text-sm font-medium text-gray-400">Address</label>
+                    <input type="text" th:field="*{address}" id="address" required class="form-input">
+                </div>
+                
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+                <div>
+                    <button type="submit" class="w-full mt-4 flex justify-center py-3 px-4 border border-transparent rounded-lg text-white bg-cyan-500 hover:bg-cyan-600 font-semibold transition-transform transform hover:scale-105">
+                        Register
+                    </button>
+                </div>
+            </form>
+            <p class="mt-6 text-center text-sm text-gray-400">
+                Already have an account?
+                <a th:href="@{/login}" class="font-medium text-cyan-400 hover:text-cyan-300">
+                    Login here
+                </a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
